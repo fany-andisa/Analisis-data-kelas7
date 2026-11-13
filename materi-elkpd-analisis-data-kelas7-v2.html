@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informatika Kelas 7 - Analisis Data & E-LKPD</title>
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-light: #14b8a6;
+            --primary-dark: #115e59;
+            --secondary: #f59e0b;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #475569;
+            --success: #16a34a;
+            --danger: #dc2626;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* HEADER */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .hero h1 {
+            margin: 0 0 10px 0;
+            font-size: 2rem;
+        }
+
+        .hero p {
+            margin: 0;
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        /* NAVIGATION TABS */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tab-btn {
+            padding: 15px 30px;
+            border: none;
+            background: none;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+            background-color: #f0fdfa;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 920px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--card-bg);
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 25px;
+        }
+
+        .card h2 {
+            color: var(--primary-dark);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.4rem;
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-top: 20px;
+            margin-bottom: 8px;
+            font-size: 1.15rem;
+        }
+
+        /* TABLES & BADGES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f0fdfa;
+            color: var(--primary-dark);
+        }
+
+        code {
+            background-color: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+            color: #b91c1c;
+            font-weight: bold;
+        }
+
+        .info-box {
+            background-color: #fffbeb;
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        /* VISUALIZATION CONTAINERS */
+        .visual-wrapper {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 18px;
+            margin: 18px 0;
+            text-align: center;
+        }
+
+        .visual-wrapper svg {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .visual-caption {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .chart-card {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .chart-card h4 {
+            margin: 0 0 8px 0;
+            color: var(--primary-dark);
+            font-size: 1rem;
+        }
+
+        .chart-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 10px 0 0 0;
+        }
+
+        /* FORM & SOAL STYLES */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .tab-btn { padding: 12px 15px; font-size: 0.95rem; }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"], select {
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .question-box {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            padding: 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .question-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+
+        .radio-option {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+            padding: 4px 0;
+        }
+
+        .feedback {
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        /* BUTTONS */
+        .btn-action {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-action:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* RESULT BOX */
+        #result-box {
+            display: none;
+            text-align: center;
+            background: #ecfdf5;
+            border: 2px solid var(--success);
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 25px;
+        }
+
+        .score-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--success);
+            margin: 10px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <div class="hero">
+        <h1>INFORMATIKA KELAS VII</h1>
+        <p>Bab 6: Analisis Data (Materi Pembelajaran & E-LKPD Interaktif)</p>
+    </div>
+
+    <!-- NAVIGATION TABS -->
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="openTab('materi', this)">📚 1. Materi Pembelajaran</button>
+        <button class="tab-btn" onclick="openTab('elkpd', this)">✍️ 2. Kerjakan E-LKPD</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ================= TAB 1: MATERI PEMBELAJARAN ================= -->
+        <div id="materi" class="tab-content active">
+            
+            <!-- BAGIAN 1 -->
+            <div class="card">
+                <h2>1. Mengenal Data & Satuan Ukuran Data</h2>
+                <p><strong>Data</strong> berasal dari kata <em>datum</em> yang berarti fakta atau keterangan nyata. Data bisa berupa teks, angka, gambar, suara, maupun video.</p>
+                
+                <h3>Jenis-Jenis Data:</h3>
+                <ul>
+                    <li><strong>Data Kualitatif (Kategorikal):</strong> Data yang berbentuk deskripsi, sifat, atau kategori (tidak berupa angka). <em>Contoh: Hobi siswa, warna favorit, jenis kelamin.</em></li>
+                    <li><strong>Data Kuantitatif (Numerik):</strong> Data yang berbentuk angka hasil pengukuran atau perhitungan. <em>Contoh: Tinggi badan, berat badan, nilai ulangan.</em></li>
+                </ul>
+
+                <h3>Satuan Ukuran Data Digital:</h3>
+                <table>
+                    <tr>
+                        <th>Satuan</th>
+                        <th>Simbol</th>
+                        <th>Kapasitas</th>
+                    </tr>
+                    <tr>
+                        <td>Byte</td>
+                        <td>B</td>
+                        <td>8 bit (1 karakter huruf)</td>
+                    </tr>
+                    <tr>
+                        <td>Kilobyte</td>
+                        <td>KB</td>
+                        <td>1.024 Byte</td>
+                    </tr>
+                    <tr>
+                        <td>Megabyte</td>
+                        <td>MB</td>
+                        <td>1.024 KB</td>
+                    </tr>
+                    <tr>
+                        <td>Gigabyte</td>
+                        <td>GB</td>
+                        <td>1.024 MB</td>
+                    </tr>
+                    <tr>
+                        <td>Terabyte</td>
+                        <td>TB</td>
+                        <td>1.024 GB</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- BAGIAN 2 -->
+            <div class="card">
+                <h2>2. Perkakas Pengolah Lembar Kerja (Spreadsheet)</h2>
+                <p>Untuk mengolah data dalam jumlah banyak, kita menggunakan aplikasi pengolah lembar kerja seperti <strong>Microsoft Excel</strong>, <strong>Google Sheets</strong>, atau <strong>LibreOffice Calc</strong>.</p>
+                <ul>
+                    <li><strong>Workbook:</strong> File buku kerja secara keseluruhan.</li>
+                    <li><strong>Worksheet:</strong> Lembar kerja di dalam workbook (berupa tabel).</li>
+                    <li><strong>Column (Kolom):</strong> Bagian yang memanjang ke bawah, ditandai dengan huruf (A, B, C, ...).</li>
+                    <li><strong>Row (Baris):</strong> Bagian yang melintang ke samping, ditandai dengan angka (1, 2, 3, ...).</li>
+                    <li><strong>Cell (Sel):</strong> Pertemuan antara kolom dan baris (contoh: <code>B3</code> artinya Kolom B, Baris 3).</li>
+                    <li><strong>Range (Rentang):</strong> Kumpulan dari beberapa sel yang dipilih (contoh: <code>A1:C5</code>).</li>
+                </ul>
+                <div class="info-box">
+                    <strong>💡 Tips Tampilan:</strong> Gunakan fitur <strong>Freeze Panes</strong> untuk membekukan baris judul tabel agar tidak ikut bergeser saat layar digulir (<em>scroll</em>) ke bawah.
+                </div>
+            </div>
+
+            <!-- BAGIAN 3 -->
+            <div class="card">
+                <h2>3. Pengolahan Data Dasar (Rumus & Fungsi)</h2>
+                <p>Setiap penulisan rumus di Excel/Spreadsheet <strong>wajib diawali dengan tanda sama dengan (<code>=</code>)</strong>.</p>
+                
+                <table>
+                    <tr>
+                        <th>Fungsi / Rumus</th>
+                        <th>Kegunaan</th>
+                        <th>Contoh Penulisan</th>
+                    </tr>
+                    <tr>
+                        <td><code>SUM</code></td>
+                        <td>Menjumlahkan seluruh angka dalam rentang sel</td>
+                        <td><code>=SUM(B2:B10)</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>AVERAGE</code></td>
+                        <td>Menghitung nilai rata-rata</td>
+                        <td><code>=AVERAGE(B2:B10)</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>MAX</code></td>
+                        <td>Mencari nilai paling tinggi / terbesar</td>
+                        <td><code>=MAX(B2:B10)</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>MIN</code></td>
+                        <td>Mencari nilai paling rendah / terkecil</td>
+                        <td><code>=MIN(B2:B10)</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>COUNT</code></td>
+                        <td>Menghitung banyaknya sel yang berisi angka</td>
+                        <td><code>=COUNT(B2:B10)</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>IF</code></td>
+                        <td>Menguji kondisi logika (Benar / Salah)</td>
+                        <td><code>=IF(B2>=75;"Tuntas";"Remedial")</code></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- BAGIAN 4 -->
+            <div class="card">
+                <h2>4. Perbedaan Sort & Filter</h2>
+                <ul>
+                    <li><strong>Sort (Mengurutkan Data):</strong> Menyusun ulang urutan seluruh baris data (misalnya dari A–Z atau nilai terkecil ke terbesar) <strong>tanpa menghilangkan</strong> satu pun data.</li>
+                    <li><strong>Filter (Menyaring Data):</strong> Menampilkan hanya baris data yang memenuhi kriteria tertentu dan <strong>menyembunyikan sementara</strong> data lainnya.</li>
+                </ul>
+
+                <!-- ILUSTRASI SVG PERBEDAAN SORT & FILTER -->
+                <div class="visual-wrapper">
+                    <svg viewBox="0 0 820 260" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background -->
+                        <rect width="820" height="260" rx="10" fill="#ffffff"/>
+                        
+                        <!-- DATA AWAL (KIRI) -->
+                        <text x="115" y="28" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">DATA AWAL (4 Baris)</text>
+                        <rect x="25" y="40" width="180" height="28" fill="#0f766e"/>
+                        <text x="70" y="59" font-family="Segoe UI, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Nama</text>
+                        <text x="160" y="59" font-family="Segoe UI, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Nilai</text>
+                        
+                        <!-- Row 1 -->
+                        <rect x="25" y="68" width="180" height="26" fill="#f8fafc" stroke="#cbd5e1"/>
+                        <text x="70" y="85" font-family="Segoe UI, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle">Citra</text>
+                        <text x="160" y="85" font-family="Segoe UI, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle">80</text>
+                        <!-- Row 2 -->
+                        <rect x="25" y="94" width="180" height="26" fill="#ffffff" stroke="#cbd5e1"/>
+                        <text x="70" y="111" font-family="Segoe UI, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle">Andi</text>
+                        <text x="160" y="111" font-family="Segoe UI, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle">95</text>
+                        <!-- Row 3 -->
+                        <rect x="25" y="120" width="180" height="26" fill="#f8fafc" stroke="#cbd5e1"/>
+                        <text x="70" y="137" font-family="Segoe UI, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle">Dina</text>
+                        <text x="160" y="137" font-family="Segoe UI, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle">70</text>
+                        <!-- Row 4 -->
+                        <rect x="25" y="146" width="180" height="26" fill="#ffffff" stroke="#cbd5e1"/>
+                        <text x="70" y="163" font-family="Segoe UI, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle">Budi</text>
+                        <text x="160" y="163" font-family="Segoe UI, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle">88</text>
+                        <line x1="115" y1="40" x2="115" y2="172" stroke="#cbd5e1"/>
+
+                        <!-- PANAH KE SORT -->
+                        <path d="M 215 85 L 285 65" stroke="#0284c7" stroke-width="2.5" fill="none" marker-end="url(#arrowBlue)"/>
+                        <text x="248" y="62" font-family="Segoe UI, sans-serif" font-size="11" font-weight="bold" fill="#0284c7" text-anchor="middle">SORT A-Z</text>
+
+                        <!-- PANAH KE FILTER -->
+                        <path d="M 215 135 L 285 165" stroke="#d97706" stroke-width="2.5" fill="none" marker-end="url(#arrowOrange)"/>
+                        <text x="245" y="168" font-family="Segoe UI, sans-serif" font-size="11" font-weight="bold" fill="#d97706" text-anchor="middle">FILTER &gt;85</text>
+
+                        <defs>
+                            <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L7,3 z" fill="#0284c7"/>
+                            </marker>
+                            <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L7,3 z" fill="#d97706"/>
+                            </marker>
+                        </defs>
+
+                        <!-- HASIL SORT (TENGAH ATAS) -->
+                        <rect x="295" y="12" width="235" height="175" rx="8" fill="#f0f9ff" stroke="#7dd3fc"/>
+                        <text x="412" y="32" font-family="Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#0369a1" text-anchor="middle">HASIL SORT (Urut Nama A-Z)</text>
+                        <rect x="315" y="42" width="195" height="24" fill="#0284c7"/>
+                        <text x="365" y="58" font-family="Segoe UI, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Nama (A-Z)</text>
+                        <text x="462" y="58" font-family="Segoe UI, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Nilai</text>
+
+                        <rect x="315" y="66" width="195" height="22" fill="#ffffff" stroke="#bae6fd"/>
+                        <text x="365" y="81" font-family="Segoe UI, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">Andi</text>
+                        <text x="462" y="81" font-family="Segoe UI, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">95</text>
+
+                        <rect x="315" y="88" width="195" height="22" fill="#f8fafc" stroke="#bae6fd"/>
+                        <text x="365" y="103" font-family="Segoe UI, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">Budi</text>
+                        <text x="462" y="103" font-family="Segoe UI, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">88</text>
+
+                        <rect x="315" y="110" width="195" height="22" fill="#ffffff" stroke="#bae6fd"/>
+                        <text x="365" y="125" font-family="Segoe UI, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">Citra</text>
+                        <text x="462" y="125" font-family="Segoe UI, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">80</text>
+
+                        <rect x="315" y="132" width="195" height="22" fill="#f8fafc" stroke="#bae6fd"/>
+                        <text x="365" y="147" font-family="Segoe UI, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">Dina</text>
+                        <text x="462" y="147" font-family="Segoe UI, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">70</text>
+                        <line x1="415" y1="42" x2="415" y2="154" stroke="#bae6fd"/>
+                        <text x="412" y="176" font-family="Segoe UI, sans-serif" font-size="11" font-weight="bold" fill="#0369a1" text-anchor="middle">✔ Semua 4 baris tetap tampil</text>
+
+                        <!-- HASIL FILTER (KANAN) -->
+                        <rect x="550" y="12" width="245" height="175" rx="8" fill="#fffbeb" stroke="#fcd34d"/>
+                        <text x="672" y="32" font-family="Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#b45309" text-anchor="middle">HASIL FILTER (Nilai &gt; 85)</text>
+                        <rect x="572" y="42" width="200" height="24" fill="#d97706"/>
+                        <text x="622" y="58" font-family="Segoe UI, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Nama</text>
+                        <text x="722" y="58" font-family="Segoe UI, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Nilai (&gt;85)</text>
+
+                        <rect x="572" y="66" width="200" height="24" fill="#ffffff" stroke="#fde68a"/>
+                        <text x="622" y="82" font-family="Segoe UI, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">Andi</text>
+                        <text x="722" y="82" font-family="Segoe UI, sans-serif" font-size="11" font-weight="bold" fill="#16a34a" text-anchor="middle">95</text>
+
+                        <rect x="572" y="90" width="200" height="24" fill="#fef3c7" stroke="#fde68a"/>
+                        <text x="622" y="106" font-family="Segoe UI, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">Budi</text>
+                        <text x="722" y="106" font-family="Segoe UI, sans-serif" font-size="11" font-weight="bold" fill="#16a34a" text-anchor="middle">88</text>
+                        <line x1="672" y1="42" x2="672" y2="114" stroke="#fde68a"/>
+
+                        <text x="672" y="142" font-family="Segoe UI, sans-serif" font-size="11" fill="#92400e" text-anchor="middle">(Citra &amp; Dina disembunyikan)</text>
+                        <text x="672" y="176" font-family="Segoe UI, sans-serif" font-size="11" font-weight="bold" fill="#b45309" text-anchor="middle">✔ Hanya 2 baris sesuai syarat</text>
+
+                        <!-- Ringkasan Bawah -->
+                        <rect x="25" y="202" width="770" height="44" rx="6" fill="#f1f5f9"/>
+                        <text x="410" y="229" font-family="Segoe UI, sans-serif" font-size="12.5" font-weight="bold" fill="#334155" text-anchor="middle">Kesimpulan: SORT hanya mengubah urutan posisi data, sedangkan FILTER menyaring dan menyembunyikan data tertentu.</text>
+                    </svg>
+                    <div class="visual-caption">Gambar 1: Ilustrasi perbandingan cara kerja fitur Sort dan Filter pada tabel data.</div>
+                </div>
+            </div>
+
+            <!-- BAGIAN 5 -->
+            <div class="card">
+                <h2>5. Visualisasi Data (Jenis-Jenis Grafik / Chart)</h2>
+                <p>Data berupa tabel angka akan lebih mudah dipahami polanya jika diubah menjadi grafik (<em>Chart</em>). Berikut adalah 3 jenis grafik utama yang paling sering digunakan:</p>
+
+                <div class="charts-grid">
+                    <!-- 1. BAR / COLUMN CHART -->
+                    <div class="chart-card">
+                        <h4>1. Bar / Column Chart</h4>
+                        <svg viewBox="0 0 240 170" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="240" height="170" fill="#ffffff" rx="6"/>
+                            <!-- Sumbu -->
+                            <line x1="35" y1="20" x2="35" y2="135" stroke="#64748b" stroke-width="2"/>
+                            <line x1="35" y1="135" x2="220" y2="135" stroke="#64748b" stroke-width="2"/>
+                            <!-- Grid -->
+                            <line x1="35" y1="95" x2="220" y2="95" stroke="#e2e8f0" stroke-dasharray="3"/>
+                            <line x1="35" y1="55" x2="220" y2="55" stroke="#e2e8f0" stroke-dasharray="3"/>
+                            <!-- Batang -->
+                            <rect x="52" y="65" width="32" height="70" fill="#0f766e" rx="3"/>
+                            <text x="68" y="58" font-size="10" font-weight="bold" fill="#0f766e" text-anchor="middle">14</text>
+                            <text x="68" y="150" font-size="10" fill="#334155" text-anchor="middle">Basket</text>
+
+                            <rect x="108" y="35" width="32" height="100" fill="#14b8a6" rx="3"/>
+                            <text x="124" y="28" font-size="10" font-weight="bold" fill="#0f766e" text-anchor="middle">20</text>
+                            <text x="124" y="150" font-size="10" fill="#334155" text-anchor="middle">Futsal</text>
+
+                            <rect x="164" y="85" width="32" height="50" fill="#f59e0b" rx="3"/>
+                            <text x="180" y="78" font-size="10" font-weight="bold" fill="#b45309" text-anchor="middle">10</text>
+                            <text x="180" y="150" font-size="10" fill="#334155" text-anchor="middle">Voli</text>
+                        </svg>
+                        <p><strong>Fungsi:</strong> Membandingkan jumlah/nilai antar kategori (Contoh: Jumlah peminat ekstrakurikuler).</p>
+                    </div>
+
+                    <!-- 2. LINE CHART -->
+                    <div class="chart-card">
+                        <h4>2. Line Chart (Grafik Garis)</h4>
+                        <svg viewBox="0 0 240 170" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="240" height="170" fill="#ffffff" rx="6"/>
+                            <!-- Sumbu -->
+                            <line x1="35" y1="20" x2="35" y2="135" stroke="#64748b" stroke-width="2"/>
+                            <line x1="35" y1="135" x2="220" y2="135" stroke="#64748b" stroke-width="2"/>
+                            <!-- Grid -->
+                            <line x1="35" y1="95" x2="220" y2="95" stroke="#e2e8f0" stroke-dasharray="3"/>
+                            <line x1="35" y1="55" x2="220" y2="55" stroke="#e2e8f0" stroke-dasharray="3"/>
+                            <!-- Garis Tren -->
+                            <polyline points="55,110 105,80 155,90 205,40" fill="none" stroke="#0284c7" stroke-width="3"/>
+                            <!-- Titik Data -->
+                            <circle cx="55" cy="110" r="4.5" fill="#0369a1"/>
+                            <text x="55" y="100" font-size="9.5" font-weight="bold" fill="#0369a1" text-anchor="middle">72</text>
+                            <text x="55" y="150" font-size="9.5" fill="#334155" text-anchor="middle">Jan</text>
+
+                            <circle cx="105" cy="80" r="4.5" fill="#0369a1"/>
+                            <text x="105" y="70" font-size="9.5" font-weight="bold" fill="#0369a1" text-anchor="middle">80</text>
+                            <text x="105" y="150" font-size="9.5" fill="#334155" text-anchor="middle">Feb</text>
+
+                            <circle cx="155" cy="90" r="4.5" fill="#0369a1"/>
+                            <text x="155" y="80" font-size="9.5" font-weight="bold" fill="#0369a1" text-anchor="middle">78</text>
+                            <text x="155" y="150" font-size="9.5" fill="#334155" text-anchor="middle">Mar</text>
+
+                            <circle cx="205" cy="40" r="4.5" fill="#0369a1"/>
+                            <text x="205" y="30" font-size="9.5" font-weight="bold" fill="#0369a1" text-anchor="middle">92</text>
+                            <text x="205" y="150" font-size="9.5" fill="#334155" text-anchor="middle">Apr</text>
+                        </svg>
+                        <p><strong>Fungsi:</strong> Melihat kenaikan/penurunan tren data dari waktu ke waktu (Contoh: Perkembangan nilai tiap bulan).</p>
+                    </div>
+
+                    <!-- 3. PIE CHART -->
+                    <div class="chart-card">
+                        <h4>3. Pie Chart (Lingkaran)</h4>
+                        <svg viewBox="0 0 240 170" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="240" height="170" fill="#ffffff" rx="6"/>
+                            <!-- Lingkaran Pie (Pusat 85, 85, Radius 55) -->
+                            <!-- 50% (Kanan) -->
+                            <path d="M 85 85 L 85 30 A 55 55 0 0 1 85 140 Z" fill="#0f766e"/>
+                            <!-- 30% (Kiri Bawah) -->
+                            <path d="M 85 85 L 85 140 A 55 55 0 0 1 32.7 68 Z" fill="#f59e0b"/>
+                            <!-- 20% (Kiri Atas) -->
+                            <path d="M 85 85 L 32.7 68 A 55 55 0 0 1 85 30 Z" fill="#38bdf8"/>
+                            
+                            <!-- Label Persentase di dalam Pie -->
+                            <text x="112" y="90" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">50%</text>
+                            <text x="62" y="112" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">30%</text>
+                            <text x="64" y="62" font-size="10" font-weight="bold" fill="#1e293b" text-anchor="middle">20%</text>
+
+                            <!-- Legenda -->
+                            <rect x="152" y="48" width="10" height="10" fill="#0f766e" rx="2"/>
+                            <text x="167" y="57" font-size="10" fill="#334155">Jajan (50%)</text>
+
+                            <rect x="152" y="75" width="10" height="10" fill="#f59e0b" rx="2"/>
+                            <text x="167" y="84" font-size="10" fill="#334155">Tabung (30%)</text>
+
+                            <rect x="152" y="102" width="10" height="10" fill="#38bdf8" rx="2"/>
+                            <text x="167" y="111" font-size="10" fill="#334155">Buku (20%)</text>
+                        </svg>
+                        <p><strong>Fungsi:</strong> Menampilkan proporsi atau persentase bagian dari total keseluruhan 100%.</p>
+                    </div>
+                </div>
+
+                <button class="btn-action" style="margin-top: 25px;" onclick="switchToLKPD()">Sudah Paham? Lanjut Kerjakan E-LKPD ➔</button>
+            </div>
+        </div>
+
+        <!-- ================= TAB 2: E-LKPD INTERAKTIF ================= -->
+        <div id="elkpd" class="tab-content">
+            <div class="card">
+                <h2>Identitas Peserta Didik</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap:</label>
+                        <input type="text" id="nama" placeholder="Ketik nama lengkapmu...">
+                    </div>
+                    <div class="form-group">
+                        <label for="kelas">Kelas:</label>
+                        <select id="kelas">
+                            <option value="">-- Pilih Kelas --</option>
+                            <option value="VII-1">VII-1</option>
+                            <option value="VII-2">VII-2</option>
+                            <option value="VII-3">VII-3</option>
+                            <option value="VII-4">VII-4</option>
+                            <option value="VII-5">VII-5</option>
+                            <option value="VII-6">VII-6</option>
+                            <option value="VII-7">VII-7</option>
+                            <option value="VII-8">VII-8</option>
+                            <option value="VII-9">VII-9</option>
+                            <option value="VII-10">VII-10</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Aktivitas Mandiri: Uji Pemahaman Analisis Data</h2>
+                <p>Jawablah 5 pertanyaan berikut berdasarkan materi yang telah kamu pelajari!</p>
+
+                <!-- SOAL 1 -->
+                <div class="question-box">
+                    <div class="question-title">1. Data berikut yang termasuk ke dalam kategori <u>Data Kuantitatif</u> adalah...</div>
+                    <label class="radio-option"><input type="radio" name="q1" value="a"> Warna seragam sekolah</label>
+                    <label class="radio-option"><input type="radio" name="q1" value="b"> Makanan favorit siswa kelas 7</label>
+                    <label class="radio-option"><input type="radio" name="q1" value="c"> Tinggi badan dan nilai ulangan harian</label>
+                    <label class="radio-option"><input type="radio" name="q1" value="d"> Alamat rumah siswa</label>
+                    <div class="feedback" id="fb-1"></div>
+                </div>
+
+                <!-- SOAL 2 -->
+                <div class="question-box">
+                    <div class="question-title">2. Pertemuan antara Kolom D dan Baris ke-12 pada aplikasi pengolah lembar kerja disebut sel...</div>
+                    <label class="radio-option"><input type="radio" name="q2" value="a"> 12D</label>
+                    <label class="radio-option"><input type="radio" name="q2" value="b"> D12</label>
+                    <label class="radio-option"><input type="radio" name="q2" value="c"> D:12</label>
+                    <label class="radio-option"><input type="radio" name="q2" value="d"> =D12</label>
+                    <div class="feedback" id="fb-2"></div>
+                </div>
+
+                <!-- SOAL 3 -->
+                <div class="question-box">
+                    <div class="question-title">3. Tuliskan nama fungsi pada Excel/Spreadsheet yang digunakan untuk mencari <u>nilai rata-rata</u>! (Tulis nama fungsinya saja, contoh: SUM)</div>
+                    <input type="text" id="q3" placeholder="Ketik jawabanmu di sini...">
+                    <div class="feedback" id="fb-3"></div>
+                </div>
+
+                <!-- SOAL 4 -->
+                <div class="question-box">
+                    <div class="question-title">4. Perhatikan gambar perbedaan Sort dan Filter pada materi. Jika guru hanya ingin menampilkan siswa yang nilainya di atas 85 dan menyembunyikan sisanya sementara, fitur yang digunakan adalah...</div>
+                    <select id="q4">
+                        <option value="">-- Pilih Jawaban --</option>
+                        <option value="filter">Filter</option>
+                        <option value="sort">Sort</option>
+                        <option value="freeze">Freeze Panes</option>
+                        <option value="chart">Insert Chart</option>
+                    </select>
+                    <div class="feedback" id="fb-4"></div>
+                </div>
+
+                <!-- SOAL 5 -->
+                <div class="question-box">
+                    <div class="question-title">5. Grafik yang paling cocok digunakan untuk menampilkan <u>persentase</u> pembagian uang saku siswa dalam satu bulan adalah...</div>
+                    <label class="radio-option"><input type="radio" name="q5" value="a"> Line Chart (Grafik Garis)</label>
+                    <label class="radio-option"><input type="radio" name="q5" value="b"> Pie Chart (Diagram Lingkaran)</label>
+                    <label class="radio-option"><input type="radio" name="q5" value="c"> Bar Chart (Grafik Batang)</label>
+                    <label class="radio-option"><input type="radio" name="q5" value="d"> Freeze Chart</label>
+                    <div class="feedback" id="fb-5"></div>
+                </div>
+
+                <button class="btn-action" onclick="cekNilai()">Selesai & Lihat Skor Akhir</button>
+            </div>
+
+            <!-- KOTAK HASIL -->
+            <div id="result-box">
+                <h2>🎉 Hasil Pengerjaan E-LKPD</h2>
+                <p id="student-info"></p>
+                <div class="score-number" id="final-score">0</div>
+                <p id="score-message"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        Modul Digital Informatika Kelas VII — Kurikulum Merdeka
+    </footer>
+
+    <script>
+        // Fungsi berpindah Tab
+        function openTab(tabName, btnElement) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            btnElement.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function switchToLKPD() {
+            const lkpdBtn = document.querySelectorAll('.tab-btn')[1];
+            openTab('elkpd', lkpdBtn);
+        }
+
+        // Fungsi Koreksi & Penilaian E-LKPD
+        function cekNilai() {
+            const nama = document.getElementById('nama').value.trim();
+            const kelas = document.getElementById('kelas').value;
+
+            if (nama === "" || kelas === "") {
+                alert("⚠️ Harap lengkapi Nama Lengkap dan Kelas terlebih dahulu sebelum melihat nilai!");
+                document.getElementById('nama').focus();
+                return;
+            }
+
+            let benar = 0;
+            const totalSoal = 5;
+
+            // Cek Soal 1 (Kunci: c)
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const fb1 = document.getElementById('fb-1');
+            fb1.style.display = "block";
+            if (q1 && q1.value === "c") {
+                benar++;
+                fb1.style.color = "var(--success)";
+                fb1.innerText = "✔ Tepat! Tinggi badan dan nilai adalah data berupa angka (kuantitatif).";
+            } else {
+                fb1.style.color = "var(--danger)";
+                fb1.innerText = "✘ Kurang tepat. Jawaban benar: Tinggi badan dan nilai ulangan harian.";
+            }
+
+            // Cek Soal 2 (Kunci: b)
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            const fb2 = document.getElementById('fb-2');
+            fb2.style.display = "block";
+            if (q2 && q2.value === "b") {
+                benar++;
+                fb2.style.color = "var(--success)";
+                fb2.innerText = "✔ Tepat! Penulisan sel selalu dimulai dari huruf Kolom lalu angka Baris (D12).";
+            } else {
+                fb2.style.color = "var(--danger)";
+                fb2.innerText = "✘ Kurang tepat. Jawaban benar: D12.";
+            }
+
+            // Cek Soal 3 (Kunci: average)
+            const q3 = document.getElementById('q3').value.trim().toLowerCase().replace('=', '');
+            const fb3 = document.getElementById('fb-3');
+            fb3.style.display = "block";
+            if (q3 === "average") {
+                benar++;
+                fb3.style.color = "var(--success)";
+                fb3.innerText = "✔ Tepat! Fungsi AVERAGE digunakan untuk menghitung rata-rata.";
+            } else {
+                fb3.style.color = "var(--danger)";
+                fb3.innerText = "✘ Kurang tepat. Jawaban benar: AVERAGE.";
+            }
+
+            // Cek Soal 4 (Kunci: filter)
+            const q4 = document.getElementById('q4').value;
+            const fb4 = document.getElementById('fb-4');
+            fb4.style.display = "block";
+            if (q4 === "filter") {
+                benar++;
+                fb4.style.color = "var(--success)";
+                fb4.innerText = "✔ Tepat! Filter menyaring data sesuai syarat dan menyembunyikan data lainnya.";
+            } else {
+                fb4.style.color = "var(--danger)";
+                fb4.innerText = "✘ Kurang tepat. Jawaban benar: Filter.";
+            }
+
+            // Cek Soal 5 (Kunci: b)
+            const q5 = document.querySelector('input[name="q5"]:checked');
+            const fb5 = document.getElementById('fb-5');
+            fb5.style.display = "block";
+            if (q5 && q5.value === "b") {
+                benar++;
+                fb5.style.color = "var(--success)";
+                fb5.innerText = "✔ Tepat! Pie Chart ideal untuk menampilkan proporsi atau persentase.";
+            } else {
+                fb5.style.color = "var(--danger)";
+                fb5.innerText = "✘ Kurang tepat. Jawaban benar: Pie Chart (Diagram Lingkaran).";
+            }
+
+            // Hitung Skor
+            const skorAkhir = (benar / totalSoal) * 100;
+
+            const resultBox = document.getElementById('result-box');
+            resultBox.style.display = "block";
+            document.getElementById('student-info').innerHTML = `<strong>Nama Siswa:</strong> ${nama} | <strong>Kelas:</strong> ${kelas}`;
+            document.getElementById('final-score').innerText = skorAkhir;
+
+            const msg = document.getElementById('score-message');
+            if (skorAkhir >= 80) {
+                msg.innerText = "Hebat! Kamu sudah menguasai konsep dasar Analisis Data dengan sangat baik.";
+            } else if (skorAkhir >= 60) {
+                msg.innerText = "Cukup bagus! Baca kembali materi pada bagian yang masih keliru ya.";
+            } else {
+                msg.innerText = "Jangan menyerah! Silakan pelajari kembali tab Materi Pembelajaran lalu coba lagi.";
+            }
+
+            resultBox.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
